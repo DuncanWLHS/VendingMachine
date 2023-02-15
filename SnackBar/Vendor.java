@@ -14,8 +14,8 @@ public class Vendor
     private int stock;
     private int deposit;
     private int change;
-    //make a private static double variable called totalSales that has an initial value of 0
-
+    //make a private static double variable called totalSales that has an initial value of 0 and stores the amount of money made
+    private static double totalSales = 0;
 
     /**
      * Constructs a Vendor
@@ -25,17 +25,17 @@ public class Vendor
     public Vendor(int price, int stock)
     {
         //You need to complete this using this. notation
+        this.price = price;
+        this.stock = stock;
     }
 
     /**
      * Sets the quantity of items in stock.
-     * @param qty number of items to place in stock (int)
+     * @param stock number of items to place in stock (int)
      */
-
-
     public void setStock(int stock)
     {
-        //You need to complete this using this. notation
+        this.stock = stock;
     }
 
     /**
@@ -44,17 +44,17 @@ public class Vendor
      */
     public int getStock()
     {
-        //complete this
+        return stock;
     }
 
     /**
      * Adds a specified amount (in cents) to the
      * deposited amount.
-     * @param number of cents to add to the deposit (int)
+     * @param d of cents to add to the deposit (int)
      */
     public void addMoney(int d)
     {
-        //You need to complete this using mutator
+        deposit += d;
     }
 
     /**
@@ -77,7 +77,15 @@ public class Vendor
      */
     public boolean makeSale()
     {
-        //create the makesale method
+        //create the make sale method
+        if ((stock > 0) && (deposit >= price)) {
+            stock--;
+            change = deposit - price;
+            deposit -= price;
+            return  true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -98,21 +106,26 @@ public class Vendor
         /*
         note that the coin class has a .getQuarters(), a .getDimes() etc etc (use the coin class!)
         */
-        
+        Coins coinChanges = new Coins(change);
+        int quarters = coinChanges.getQuarters();
+        int dimes = coinChanges.getDimes();
+        int nickels = coinChanges.getNickles();
+        int pennies = coinChanges.getPennies();
 
-        String changeString="";
+        String changeString=" q: " + quarters + " d: " + dimes + " n: " + nickels + " p: " + pennies;
 
         return changeString;
     }
     
     /**
-    * Returns the total number of sales and resets the total number of sales to 0
+    * Returns the total dollars of sales and resets the total dollars of sales to 0
     * Hint: use a temp variable
     *
-    * @return number of sales
+    * @return dollars of sales
     */
     public static double getTotalSales()
     {
         //complete this
+        return  totalSales;
     }
 }
