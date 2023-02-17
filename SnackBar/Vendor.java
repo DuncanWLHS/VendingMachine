@@ -80,10 +80,13 @@ public class Vendor
         //create the make sale method
         if ((stock > 0) && (deposit >= price)) {
             stock--;
-            change = deposit - price;
-            deposit -= price;
+            change += deposit - price;
+            totalSales += price;
+            deposit = 0;
             return  true;
         } else {
+            change += deposit;
+            deposit = 0;
             return false;
         }
     }
@@ -100,6 +103,10 @@ public class Vendor
         return c;
     }
 
+    /**
+     *
+     * @return a string of your change in quarter, nickels, dimes, and pennies.
+     */
     public String getChangeString()
     {
         //From Ethan: create a get method that returns the amount and type of coins that should be returned by the machine
@@ -126,6 +133,9 @@ public class Vendor
     public static double getTotalSales()
     {
         //complete this
-        return  totalSales;
+        double temp = totalSales;
+        temp /= 100;
+        totalSales = 0;
+        return  temp;
     }
 }
